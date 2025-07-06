@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Effort Estimation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2 class="heading"> Estimation</h2>
+        <div class="grid-container">
+            <!-- Traditional Approach -->
+            <div class="box traditional-box">
+                <h3>Traditional Approach</h3>
+                <form id="traditional-form">
+                    <div class="input-group">
+                        <label>Object Points:</label>
+                        <input type="number" name="Object_points" placeholder="numeric" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Degree of S/W Reuse:</label>
+                        <input type="number" name="Degree_of_software_reuse_" placeholder="1 to 5" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Programmers Exp (1-5):</label>
+                        <input type="number" name="Programmers_experience" placeholder="1 to 5" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Programmers Capability (1-5):</label>
+                        <input type="number" name="Programmers_capability" placeholder="1 to 5" required>
+                    </div>
+                    <div class="input-group">
+    <label>Team Size:</label>
+    <input type="number" name="Team_size" placeholder="Numeric value" required>
+</div>
+<div class="input-group">
+    <label>Dedicated Team Members:</label>
+    <input type="number" name="Dedicated_team_members" placeholder="Numeric value" required>
+</div>
+                    <div class="input-group">
+    <label>Working Hours ( Default 8):</label>
+    <input type="number" name="Working_hours" placeholder="Enter working hours">
+</div>
+                    <div class="input-group">
+
+                        <label>Avg Salary:</label>
+                        <input type="number" name="Avg_salary" placeholder="in Rupees" required>
+                    </div>
+
+                    <button type="submit" class="predict-btn">Estimate</button>
+                </form>
+
+                <!-- Formula Effort Result -->
+                <div class="result-box" id="traditional-result">
+                    <p><strong>Effort:</strong> <span id="formula_effort">N/A</span> person-hours</p>
+                    <p><strong>Duration:</strong> <span id="formula_duration">N/A</span> months</p>
+                    <p><strong>Cost:</strong> <span id="formula_cost">N/A</span></p>
+                </div>
+            </div>
+
+            <!-- ML Approach -->
+<div class="box ml-box">
+    <h3>ML Approach</h3>
+    <form id="ml-form">
+
+        <div class="input-group">
+            <label>Year of Project:</label>
+            <input type="number" name="Year_of_project" placeholder="Enter year" required>
+        </div>
+        <div class="input-group">
+            <label>Object Points:</label>
+            <input type="number" name="Object_points" placeholder="Numeric value" required>
+        </div>
+        <div class="input-group">
+            <label> Size:</label>
+            <input type="number" name="Other_sizing_method" placeholder="1 to 5" required>
+        </div>
+        <div class="input-group">
+            <label>Government Policy Impact:</label>
+            <input type="number" name="Government_policy_impact" placeholder="1 to 5" required>
+        </div>
+        <div class="input-group">
+            <label>Economic Instability Impact:</label>
+            <input type="number" name="Economic_instability_impact" placeholder="1 to 5" required>
+        </div>
+        <div class="input-group">
+            <label>Top Management Support:</label>
+            <input type="number" name="Top_management_support" placeholder="1 to 5" required>
+        </div>
+        <div class="input-group">
+            <label>User Resistance:</label>
+            <input type="number" name="User_resistance" placeholder="1 to 5" required>
+        </div>
+        <div class="input-group">
+            <label>Requirement Stability:</label>
+            <input type="number" name="Requirment_stability" placeholder="1 to 5" required>
+        </div>
+        <div class="input-group">
+            <label>Team Size:</label>
+            <input type="number" name="Team_size" placeholder="Numeric value" required>
+        </div>
+        <div class="input-group">
+            <label>Dedicated Team Members:</label>
+            <input type="number" name="Dedicated_team_members" placeholder="Numeric value" required>
+        </div>
+
+        <!-- ML Approach -->
+<div class="input-group">
+    <label>Working Hours (Default 8):</label>
+    <input type="number" name="Working_hours" placeholder="Enter working hours">
+</div>
+
+        <div class="input-group">
+            <label>Avg Salary of Team:</label>
+            <input type="number" name="Avg_salary" placeholder="In Rupees" required>
+        </div>
+
+        <button type="submit" class="predict-btn">Estimate</button>
+    </form>
+
+    <!-- Model Effort Result -->
+
+
+<!--<br>-->
+
+                <!-- Model Effort Result -->
+                <div class="result-box" id="ml-result">
+                    <p><strong>Effort:</strong> <span id="model_effort">N/A</span> person-hours</p>
+                    <p><strong>Duration:</strong> <span id="model_duration">N/A</span> months</p>
+                    <p><strong>Cost:</strong> <span id="model_cost">N/A</span></p>
+                </div>
+            </div>
+        </div>
+        <!--<br>-->
+        <!--<div class="logout-container">
+            <button onclick="window.location.href='{{ url_for('logout') }}'" class="logout-btn">Logout</button>
+        </div>
+    </div>-->
+       <div class="logout-container"><!--
+    <form action="{{ url_for('logout') }}" method="post">
+        <button type="submit" class="logout-btn">Logout</button>
+    </form>-->
+           <form action="{{ url_for('logout') }}" method="POST" style="display: inline;">
+    <button type="submit" class="btn btn-danger">Logout</button>
+</form>
+
+</div>
+
+
+
+    <script>
+document.getElementById("traditional-form").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+    var formData = new FormData(this);
+    formData.append("formula_submit", "true"); // Ensure "formula_submit" is sent
+
+    fetch('/predict', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert("Error: " + data.error);
+        } else {
+            document.getElementById("formula_effort").textContent = data.formula_effort || 'N/A';
+
+            document.getElementById("formula_duration").textContent = data.formula_duration || 'N/A';
+            document.getElementById("formula_cost").textContent = "₹" + (data.formula_cost || 'N/A');
+        }
+    })
+    .catch(error => console.error("Error:", error));
+});
+
+document.getElementById("ml-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    var formData = new FormData(this);
+    var jsonData = {};
+
+    formData.forEach((value, key) => {
+        jsonData[key] = value;
+    });
+
+    jsonData["model_submit"] = "true"; // Ensure "model_submit" is sent
+
+    fetch('/predict', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert("Error: " + data.error);
+        } else {
+            document.getElementById("model_effort").textContent = data.model_effort || 'N/A';
+            document.getElementById("model_duration").textContent = data.model_duration || 'N/A';
+            document.getElementById("model_cost").textContent = "₹" + (data.model_cost || 'N/A');
+        }
+    })
+    .catch(error => console.error("Error:", error));
+});
+</script>
+
+</body>
+</html>

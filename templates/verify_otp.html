@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login_signup.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Verify OTP</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+       <form method="POST">
+    <input type="hidden" name="new_username" value="{{ new_username }}">
+    <input type="hidden" name="new_password" value="{{ new_password }}">
+    <input type="hidden" name="email" value="{{ email }}">
+
+    <div class="input-group">
+        <label for="otp">Enter OTP:</label>
+        <input type="text" id="otp" name="otp" placeholder="OTP" required>
+    </div>
+    <button type="submit" class="signup-btn">Verify OTP</button>
+</form>
+
+    </div>
+</body>
+</html>
