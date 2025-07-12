@@ -1,4 +1,10 @@
-pandas
-scikit-learn
+
 matplotlib
 streamlit
+Flask
+joblib
+numpy
+pandas
+Flask-SQLAlchemy
+python-dotenv
+scikit-learn
